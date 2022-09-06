@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useTable, usePagination } from 'react-table';
-import { useQuery } from 'react-query';
-import { fetchPokemonData } from './fetchData';
+import React from "react";
+import styled from "styled-components";
+import { useTable, usePagination } from "react-table";
+import { useQuery } from "react-query";
+import { fetchPokemonData } from "./fetchData";
 
 const TableContainer = styled.div`
   padding: 1rem;
@@ -39,12 +39,12 @@ const TableContainer = styled.div`
 
 const columns = [
   {
-    Header: 'Name',
-    accessor: 'name',
+    Header: "Name",
+    accessor: "name",
   },
   {
-    Header: 'Url',
-    accessor: 'url',
+    Header: "Url",
+    accessor: "url",
   },
 ];
 
@@ -60,9 +60,9 @@ const initialState = {
   totalCount: null,
 };
 
-const PAGE_CHANGED = 'PAGE_CHANGED';
-const PAGE_SIZE_CHANGED = 'PAGE_SIZE_CHANGED';
-const TOTAL_COUNT_CHANGED = 'TOTAL_COUNT_CHANGED';
+const PAGE_CHANGED = "PAGE_CHANGED";
+const PAGE_SIZE_CHANGED = "PAGE_SIZE_CHANGED";
+const TOTAL_COUNT_CHANGED = "TOTAL_COUNT_CHANGED";
 
 const reducer = (state, { type, payload }) => {
   switch (type) {
@@ -91,7 +91,7 @@ function PokemonTable() {
     React.useReducer(reducer, initialState);
 
   const { isLoading, error, data, isSuccess } = useQuery(
-    ['pokemons', queryPageIndex, queryPageSize],
+    ["pokemons", queryPageIndex, queryPageSize],
     () => fetchPokemonData(queryPageIndex, queryPageSize),
     {
       keepPreviousData: true,
@@ -113,6 +113,7 @@ function PokemonTable() {
     nextPage,
     previousPage,
     setPageSize,
+
     // Get the state from the instance
     state: { pageIndex, pageSize },
   } = useTable(
@@ -168,7 +169,7 @@ function PokemonTable() {
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
                     <th {...column.getHeaderProps()}>
-                      {column.render('Header')}
+                      {column.render("Header")}
                     </th>
                   ))}
                 </tr>
@@ -180,7 +181,7 @@ function PokemonTable() {
                 return (
                   <tr {...row.getRowProps()}>
                     {row.cells.map((cell) => (
-                      <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                     ))}
                   </tr>
                 );
@@ -189,28 +190,28 @@ function PokemonTable() {
           </table>
           <div className="pagination">
             <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-              {'<<'}
-            </button>{' '}
+              {"<<"}
+            </button>{" "}
             <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-              {'<'}
-            </button>{' '}
+              {"<"}
+            </button>{" "}
             <button onClick={() => nextPage()} disabled={!canNextPage}>
-              {'>'}
-            </button>{' '}
+              {">"}
+            </button>{" "}
             <button
               onClick={() => gotoPage(pageCount - 1)}
               disabled={!canNextPage}
             >
-              {'>>'}
-            </button>{' '}
+              {">>"}
+            </button>{" "}
             <span>
-              Page{' '}
+              Page{" "}
               <strong>
                 {pageIndex + 1} of {pageOptions.length}
-              </strong>{' '}
+              </strong>{" "}
             </span>
             <span>
-              | Go to page:{' '}
+              | Go to page:{" "}
               <input
                 type="number"
                 value={pageIndex + 1}
@@ -218,9 +219,9 @@ function PokemonTable() {
                   const page = e.target.value ? Number(e.target.value) - 1 : 0;
                   gotoPage(page);
                 }}
-                style={{ width: '100px' }}
+                style={{ width: "100px" }}
               />
-            </span>{' '}
+            </span>{" "}
             <select
               value={pageSize}
               onChange={(e) => {
